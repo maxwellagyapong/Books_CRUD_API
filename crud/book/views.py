@@ -11,7 +11,9 @@ def book_list(request):
         try:
             books = Book.objects.all()
         except Book.DoesNotExist:
-            return Response({"Error": "No books found!"}, status=status.HTTP_404_NOT_FOUND)
+            books = None
+            if books == None:
+                return Response({"Error": "No books found!"}, status=status.HTTP_404_NOT_FOUND)
         serializer = BookSerializer(books, many=True)
         return Response(serializer.data)
     
@@ -31,7 +33,9 @@ def book_detail(request, pk):
         try:
             book = Book.objects.get(id=pk)
         except Book.DoesNotExist:
-            return Response({"Error": "Book not found!"}, status=status.HTTP_404_NOT_FOUND)
+            book = None
+            if book == None:
+                return Response({"Error": "Book not found!"}, status=status.HTTP_404_NOT_FOUND)
         serializer = BookSerializer(book)
         return Response(serializer.data)
 
