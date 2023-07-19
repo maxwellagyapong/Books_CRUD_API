@@ -15,9 +15,8 @@ class BookSerializer(serializers.ModelSerializer):
         return Book.objects.create(**validated_data)
     
     def update(self, instance, validated_data):
-        # instance.title = validated_data.get("title", instance.title)
-        # instance.author = validated_data.get("author", instance.author)
-        # instance.year = validated_data.get("year", instance.year)
-        # instance.save()
-        # return instance
-        return Book.objects.update(instance, validated_data)
+        instance.title = validated_data.get("title", instance.title)
+        instance.author = validated_data.get("author", instance.author)
+        instance.year = validated_data.get("year", instance.year)
+        instance.save()
+        return instance
