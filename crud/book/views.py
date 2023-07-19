@@ -2,6 +2,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import Book
 from .serializers import BookSerializer
+from rest_framework import status
 
 @api_view(["GET", "POST"])
 def book_list(request):
@@ -20,4 +21,30 @@ def book_list(request):
             serializer.save()
             return Response(serializer.data)
         else:
-            return Response(serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+@api_view(["PUT"])
+def book_update(request, pk):
+    if request.method == "PUT":
+        try:
+            book = Book.objects.get(id=pk)
+        except Book.DoesNotExist:
+            raise("Book not found!")
+        serializer = BookSerializer(book, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["DELETE"])
+def delete_book(request, pk):
+
+    if request.method == "DELETE":
+        try:
+            book = Book.objects.get(id=pk)
+        except Book.DoesNotExist:
+            raise("Book not found!")
+        book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+        
