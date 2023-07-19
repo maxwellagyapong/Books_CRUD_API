@@ -11,7 +11,7 @@ def book_list(request):
         try:
             books = Book.objects.all()
         except Book.DoesNotExist:
-            raise("Books not found!")
+            return Response({"Error": "No books found!"}, status=status.HTTP_404_NOT_FOUND)
         serializer = BookSerializer(books, many=True)
         return Response(serializer.data)
     
@@ -29,7 +29,7 @@ def book_update(request, pk):
         try:
             book = Book.objects.get(id=pk)
         except Book.DoesNotExist:
-            raise("Book not found!")
+            return Response({"Error": "Book not found!"}, status=status.HTTP_404_NOT_FOUND)
         serializer = BookSerializer(book, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -44,7 +44,7 @@ def delete_book(request, pk):
         try:
             book = Book.objects.get(id=pk)
         except Book.DoesNotExist:
-            raise("Book not found!")
+            return Response({"Error": "Book not found!"}, status=status.HTTP_404_NOT_FOUND)
         book.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
         
