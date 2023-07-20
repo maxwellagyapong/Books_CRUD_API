@@ -2,11 +2,23 @@ import csv
 import random
 from ..models import Book
 from ..serializers import BookSerializer
+from .script_runner import run_command
 
+
+#Make migrations
+def perform_makemigrations():
+    command_to_run = 'python manage.py makemigrations book'
+    run_command(command_to_run)
+
+#Finally migrate
+def perform_migrate():
+    command_to_run = 'python manage.py migrate'
+    run_command(command_to_run)
 
 #Create Books Table in PostgreSQL
 def perform_migrations():
-    pass
+    perform_makemigrations()
+    perform_migrate()
 
 #Insert 5 books into the table
 def insert_books():
