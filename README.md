@@ -44,8 +44,6 @@ In our case, default container name is "crud"
 ```
 python manage.py makemigrations
 python manage.py migrate
-python manage.py makemigrations book
-python manage.py migrate
 
 ```
 * To run query_script. This creates the necessary tables in the db and populate it with data from books.csv file and also output results of various queries to console. 
