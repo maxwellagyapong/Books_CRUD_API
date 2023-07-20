@@ -13,7 +13,8 @@ def book_list(request):
         except Book.DoesNotExist:
             books = None
             if books == None:
-                return Response({"Error": "No books found!"}, status=status.HTTP_404_NOT_FOUND)
+                return Response({"Error": "No books found!"}, 
+                                status=status.HTTP_404_NOT_FOUND)
         serializer = BookSerializer(books, many=True)
         return Response(serializer.data)
     
@@ -23,7 +24,8 @@ def book_list(request):
             serializer.save()
             return Response(serializer.data)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response(serializer.errors, 
+                            status=status.HTTP_400_BAD_REQUEST)
         
 @api_view(["GET","PUT", "DELETE"])
 def book_detail(request, pk):
@@ -35,7 +37,8 @@ def book_detail(request, pk):
         except Book.DoesNotExist:
             book = None
             if book == None:
-                return Response({"Error": "Book not found!"}, status=status.HTTP_404_NOT_FOUND)
+                return Response({"Error": "Book not found!"}, 
+                                status=status.HTTP_404_NOT_FOUND)
         serializer = BookSerializer(book)
         return Response(serializer.data)
 
@@ -44,7 +47,8 @@ def book_detail(request, pk):
         try:
             book = Book.objects.get(id=pk)
         except Book.DoesNotExist:
-            return Response({"Error": "Book not found!"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"Error": "Book not found!"}, 
+                            status=status.HTTP_404_NOT_FOUND)
         serializer = BookSerializer(book, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -57,7 +61,8 @@ def book_detail(request, pk):
         try:
             book = Book.objects.get(id=pk)
         except Book.DoesNotExist:
-            return Response({"Error": "Book not found!"}, status=status.HTTP_404_NOT_FOUND)
+            return Response({"Error": "Book not found!"}, 
+                            status=status.HTTP_404_NOT_FOUND)
         book.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
         

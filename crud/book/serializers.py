@@ -26,5 +26,5 @@ class BookSerializer(serializers.ModelSerializer):
         if value <= 0:
             raise serializers.ValidationError("Year must be greater than zero!")
         elif value > datetime.date.today().year:
-            raise serializers.ValidationError("Year cannot be greater than the current year!")
+            raise serializers.ValidationError("Year cannot be greater than this year!")
         return value
