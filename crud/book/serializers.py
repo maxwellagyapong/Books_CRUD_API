@@ -1,11 +1,12 @@
 from rest_framework import serializers
 from .models import Book
+import datetime
 
 class BookSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only = True)
     title = serializers.CharField()
     author = serializers.CharField()
-    year = serializers.DateField()
+    year = serializers.IntegerField()
 
     class Meta:
         model = Book
@@ -20,3 +21,10 @@ class BookSerializer(serializers.ModelSerializer):
         instance.year = validated_data.get("year", instance.year)
         instance.save()
         return instance
+    
+    def validate_year(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("Year must be greater than zero!")
+        elif value > datetime.date.today().year:
+            raise serializers.ValidationError("Year cannot be greater than the current year!")
+        return value
