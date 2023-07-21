@@ -1,4 +1,4 @@
-# Loan Application Project
+# Book CRUD Project
 Simple django application with CRUD as main features
 
 ## Table of contents
