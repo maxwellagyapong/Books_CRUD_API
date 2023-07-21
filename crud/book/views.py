@@ -27,7 +27,7 @@ def book_list(request):
             return Response(serializer.errors, 
                             status=status.HTTP_400_BAD_REQUEST)
         
-@api_view(["GET","PUT","PATCH","DELETE"])
+@api_view(["GET","PUT","DELETE"])
 def book_detail(request, pk):
 
     #Get specific book
