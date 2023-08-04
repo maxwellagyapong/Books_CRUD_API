@@ -23,7 +23,7 @@ def perform_migrations():
 #Insert 5 books into the table
 def insert_books():
 
-    with open(r'C:\Users\maxwe\OneDrive\Desktop\Book Project\crud\book\utils\books.csv', "r", encoding='utf-8') as file:
+    with open(r'C:\Users\maxwe\OneDrive\Desktop\Projects\Book Project\crud\book\utils\books.csv', "r", encoding='utf-8') as file:
         book_data = csv.reader(file)
 
         next(book_data)
